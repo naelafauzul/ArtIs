@@ -9,8 +9,8 @@ android {
 
     defaultConfig {
         applicationId = "com.example.artis"
-        minSdk = 34
-        targetSdk = 34
+        minSdk = 26
+        targetSdk = 31
         versionCode = 1
         versionName = "1.0"
 
