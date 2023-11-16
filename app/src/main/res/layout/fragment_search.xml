@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.SearchFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/app_bar_layout_search"
-        android:background="@android:color/white"
-        >
+        android:background="@android:color/white">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/search_toolbar"
@@ -18,9 +18,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="4dp"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:background="@drawable/button_black_background"
-            >
+            android:layout_marginRight="6dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -34,18 +32,26 @@
                     android:layout_height="40dp"
                     android:src="@drawable/search"
                     />
-
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/searchAccount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="15dp"
-                    android:textColor="@color/colorPrimary"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
+                    >
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="Search..."
-                    android:layout_toEndOf="@id/search_fragmennt_icon"
-
-
-                    />
+                    android:inputType="text|textPersonName"
+                    android:layout_toEndOf="@id/search_fragmennt_icon"/>
 
             </RelativeLayout>
 
