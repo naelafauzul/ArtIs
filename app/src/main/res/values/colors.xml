@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="tertiary_container">#fce4ec</color>
+    <color name="tertiary">#7D5260</color>
     <color name="colorPrimary">#5C32C7</color>
     <color name="colorPrimaryDark">#5C32C7</color>
     <color name="colorAccent">#ff68a5</color>
