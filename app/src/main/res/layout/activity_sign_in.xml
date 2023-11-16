@@ -16,6 +16,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailLogin"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -32,7 +33,7 @@
         android:id="@+id/email_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email..."
+        android:hint="Email"
         android:inputType="text|textEmailAddress"
         android:textColor="#000000"
         android:textColorHint="#757373" />
@@ -40,6 +41,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passLogin"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
