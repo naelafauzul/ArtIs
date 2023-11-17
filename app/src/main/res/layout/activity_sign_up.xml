@@ -17,6 +17,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/fullNameSignUp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -41,6 +42,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usernameSignUp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -65,6 +67,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailSignUp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -89,6 +92,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passSignUp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -135,7 +139,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
-        android:text="Need new account? Sign Up"
+        android:text="Already have an account? Sign In"
         android:textAllCaps="false"
         android:textColor="@color/tertiary"
         android:textSize="17dp"
