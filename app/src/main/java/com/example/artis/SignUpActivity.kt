@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -27,8 +28,8 @@ class SignUpActivity : AppCompatActivity() {
         email = findViewById(R.id.email_SignUp)
         password = findViewById(R.id.pass_signUp)
 
-        val signinButton: Button = findViewById(R.id.signin_link_btn)
-        signinButton.setOnClickListener {
+        val signinTextView: TextView = findViewById(R.id.signin_link_textview)
+        signinTextView.setOnClickListener {
             startActivity(Intent(this, SignInActivity::class.java))
         }
 
@@ -39,40 +40,61 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun CreateAccount() {
-        val fullName = fullName.text.toString()
-        val userName = userName.text.toString()
-        val email = email.text.toString()
-        val password = password.text.toString()
+        val fullNameInput = fullName.text.toString()
+        val userNameInput = userName.text.toString()
+        val emailInput = email.text.toString()
+        val passwordInput = password.text.toString()
         val progressDialog = ProgressDialog(this@SignUpActivity)
 
         when {
-                TextUtils.isEmpty(fullName) -> Toast.makeText(this@SignUpActivity, "Full name is required", Toast.LENGTH_LONG).show()
-                TextUtils.isEmpty(userName) -> Toast.makeText(this@SignUpActivity, "Username is required", Toast.LENGTH_LONG).show()
-                TextUtils.isEmpty(email) -> Toast.makeText(this@SignUpActivity, "Email is required", Toast.LENGTH_LONG).show()
-                TextUtils.isEmpty(password) -> Toast.makeText(this@SignUpActivity, "Password is required", Toast.LENGTH_LONG).show()
-
+            TextUtils.isEmpty(fullNameInput) -> {
+                Toast.makeText(this@SignUpActivity, "Full name is required", Toast.LENGTH_LONG).show()
+            }
+            TextUtils.isEmpty(userNameInput) -> {
+                Toast.makeText(this@SignUpActivity, "Username is required", Toast.LENGTH_LONG).show()
+            }
+            TextUtils.isEmpty(emailInput) -> {
+                Toast.makeText(this@SignUpActivity, "Email is required", Toast.LENGTH_LONG).show()
+            }
+            TextUtils.isEmpty(passwordInput) -> {
+                Toast.makeText(this@SignUpActivity, "Password is required", Toast.LENGTH_LONG).show()
+            }
+            !isPasswordValid(passwordInput) -> {
+                Toast.makeText(this@SignUpActivity, "Password must contain at least 8 characters with letters and numbers", Toast.LENGTH_LONG).show()
+            }
             else -> {
-                val progressDialog = ProgressDialog(this)
+                // All fields are filled and password meets criteria, proceed with account creation...
+                val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+
                 progressDialog.setTitle("SignUp")
                 progressDialog.setMessage("Please wait, this may take a while...")
                 progressDialog.setCanceledOnTouchOutside(false)
                 progressDialog.show()
 
-                val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
-
-                mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener{task ->
-                        if (task.isSuccessful){
-                            saveUserInfo(fullName,userName,email,progressDialog)
+                mAuth.createUserWithEmailAndPassword(emailInput, passwordInput)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            saveUserInfo(fullNameInput, userNameInput, emailInput, progressDialog)
                         } else {
-                            val message= task.exception!!.toString()
-                            Toast.makeText(this, "Error: $message", Toast.LENGTH_LONG).show()
-                            mAuth.signOut()
-                            progressDialog.dismiss()
+                            val message = task.exception?.message ?: "Unknown error occurred"
+                            Toast.makeText(this@SignUpActivity, "Error: $message", Toast.LENGTH_LONG).show()
+
+                            if (task.exception is FirebaseAuthUserCollisionException) {
+                                Toast.makeText(this@SignUpActivity, "Email is already registered", Toast.LENGTH_LONG).show()
+                                progressDialog.dismiss()
+                            } else {
+                                mAuth.signOut()
+                                progressDialog.dismiss()
+                            }
                         }
                     }
             }
         }
+    }
+
+    private fun isPasswordValid(password: String): Boolean {
+        val passwordPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}\$".toRegex()
+        return passwordPattern.matches(password)
     }
 
     private fun saveUserInfo(fullName: String, userName: String, email: String, progressDialog: ProgressDialog) {

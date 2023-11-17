@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/artist_logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="180dp">
+        android:layout_marginTop="150dp">
     </ImageView>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -76,25 +76,23 @@
         android:textSize="17sp"
         android:textColor="@color/white"
         android:textAllCaps="false"
-        android:text="Login"
+        android:text="Sign In"
         app:backgroundTint="#7D5260" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/signup_link_btn"
+    <TextView
+        android:id="@+id/signup_link_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:gravity="center"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
         android:text="Need new account? Sign Up"
-        android:textAllCaps="false"
         android:textColor="@color/tertiary"
         android:textSize="17dp"
-        app:backgroundTint="#FFFFFF"
-        app:boxBackgroundMode="none"
-        android:elevation="0dp"
+        android:clickable="true"
         />
 
 
