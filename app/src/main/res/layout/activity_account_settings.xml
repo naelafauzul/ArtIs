@@ -110,7 +110,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="6dp"
-        android:background="@drawable/button_black_background"
+        android:background="@drawable/button_background"
         android:layout_above="@+id/delete_account_btn"
         android:text="Logout"
         android:textColor="@color/colorBlack"

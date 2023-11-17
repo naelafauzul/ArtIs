@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
+    android:id="@+id/homeFragment"
     tools:context=".Fragments.HomeFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -26,27 +27,63 @@
 
                 <ImageView
                     android:id="@+id/artist_image"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentLeft="true"
-                    android:src="@drawable/artist" />
-
-                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="210dp"
-                    android:layout_toEndOf="@+id/artist_image"
-                    android:src="@drawable/likes" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/artist" />
 
-                <ImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/profile_icon" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="#FBE3EB"
+                        android:backgroundTint="#FBE3EB"
+                        app:cardBackgroundColor="#FBE3EB"
+                        app:cardElevation="0dp"
+                        app:cardMaxElevation="0dp">
+
+                        <ImageButton
+                            android:id="@+id/likedButton"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            android:background="#00FFFFFF"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/heart" />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        app:cardBackgroundColor="#00FFFFFF"
+                        app:cardElevation="0dp"
+                        app:cardMaxElevation="0dp">
+
+                        <ImageButton
+                            android:id="@+id/profileButton"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            android:background="#00FFFFFF"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/profile_icon" />
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -121,10 +158,12 @@
 
                                         <ImageButton
                                             android:id="@+id/imageButton3"
-                                            android:layout_width="25dp"
-                                            android:layout_height="25dp"
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
                                             android:layout_gravity="center"
+                                            android:adjustViewBounds="true"
                                             android:background="#00FFFFFF"
+                                            android:scaleType="fitCenter"
                                             android:src="@drawable/likes" />
                                     </androidx.cardview.widget.CardView>
 
@@ -138,10 +177,12 @@
 
                                         <ImageButton
                                             android:id="@+id/imageButton4"
-                                            android:layout_width="25dp"
-                                            android:layout_height="25dp"
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
                                             android:layout_gravity="center"
+                                            android:adjustViewBounds="true"
                                             android:background="#00FFFFFF"
+                                            android:scaleType="fitCenter"
                                             android:src="@drawable/comment" />
                                     </androidx.cardview.widget.CardView>
 
@@ -155,10 +196,12 @@
 
                                         <ImageButton
                                             android:id="@+id/imageButton5"
-                                            android:layout_width="25dp"
-                                            android:layout_height="25dp"
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
                                             android:layout_gravity="center"
+                                            android:adjustViewBounds="true"
                                             android:background="#00FFFFFF"
+                                            android:scaleType="fitCenter"
                                             android:src="@drawable/share" />
                                     </androidx.cardview.widget.CardView>
                                 </LinearLayout>
@@ -276,10 +319,12 @@
 
                                         <ImageButton
                                             android:id="@+id/imageButton6"
-                                            android:layout_width="25dp"
-                                            android:layout_height="25dp"
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
                                             android:layout_gravity="center"
+                                            android:adjustViewBounds="true"
                                             android:background="#00FFFFFF"
+                                            android:scaleType="fitCenter"
                                             android:src="@drawable/likes_hearted" />
                                     </androidx.cardview.widget.CardView>
 
@@ -293,10 +338,12 @@
 
                                         <ImageButton
                                             android:id="@+id/imageButton7"
-                                            android:layout_width="25dp"
-                                            android:layout_height="25dp"
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
                                             android:layout_gravity="center"
+                                            android:adjustViewBounds="true"
                                             android:background="#00FFFFFF"
+                                            android:scaleType="fitCenter"
                                             android:src="@drawable/comment" />
                                     </androidx.cardview.widget.CardView>
 
@@ -310,10 +357,12 @@
 
                                         <ImageButton
                                             android:id="@+id/imageButton8"
-                                            android:layout_width="25dp"
-                                            android:layout_height="25dp"
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
                                             android:layout_gravity="center"
+                                            android:adjustViewBounds="true"
                                             android:background="#00FFFFFF"
+                                            android:scaleType="fitCenter"
                                             android:src="@drawable/share" />
                                     </androidx.cardview.widget.CardView>
                                 </LinearLayout>

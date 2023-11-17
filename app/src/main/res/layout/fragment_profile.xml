@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/profileFragment"
     tools:context=".Fragments.ProfileFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -235,18 +236,20 @@
                 <ImageButton
                     android:id="@+id/images_grid_view_btn"
                     style="@android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/grid" />
 
                 <ImageButton
                     android:id="@+id/images_save_btn"
-                    android:layout_width="1dp"
-                    android:layout_height="49dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/save_large_icon"
+                    style="@android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    style="@android:attr/buttonBarButtonStyle"/>
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/save_large_icon" />
 
             </LinearLayout>
 
