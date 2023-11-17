@@ -1,11 +1,16 @@
 package com.example.artis.Fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.artis.AccountSettingsActivity
 import com.example.artis.R
+
+ private val View.edit_account_settings_btn: Unit
+    get() {}
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +40,13 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+
+       // view.edit_account_settings_btn.123setOnClickListener{
+       //     startActivity(Intent( context, AccountSettingsActivity::class.java))
+      //  }
+
+        return view
     }
 
     companion object {
