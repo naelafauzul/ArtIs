@@ -66,7 +66,7 @@ class SignUpActivity : AppCompatActivity() {
                             saveUserInfo(fullName,userName,email,progressDialog)
                         } else {
                             val message= task.exception!!.toString()
-                            Toast.makeText(this, "Error: $message", Toast.LENGTH_LONG)
+                            Toast.makeText(this, "Error: $message", Toast.LENGTH_LONG).show()
                             mAuth.signOut()
                             progressDialog.dismiss()
                         }
@@ -81,9 +81,9 @@ class SignUpActivity : AppCompatActivity() {
 
         val userMap = HashMap<String, Any>()
         userMap["uid"] = currentUserId
-        userMap["fullname"] = currentUserId
-        userMap["username"] = currentUserId
-        userMap["email"] = currentUserId
+        userMap["fullname"] = fullName
+        userMap["username"] = userName
+        userMap["email"] = email
         userMap["work"] = "I'm an artist"
         userMap["image"] = "https://firebasestorage.googleapis.com/v0/b/artist-app-ea1fd.appspot.com/o/Default%20Images%2Fprofile.png?alt=media&token=e1e73fd6-4844-4d04-87da-9c02d1437eb3"
 
@@ -91,7 +91,7 @@ class SignUpActivity : AppCompatActivity() {
             .addOnCompleteListener{task ->
                 if(task.isSuccessful){
                     progressDialog.dismiss()
-                    Toast.makeText(this, "Account has been created successfully.", Toast.LENGTH_LONG)
+                    Toast.makeText(this, "Account has been created successfully.", Toast.LENGTH_LONG).show()
 
                     val intent = Intent(this, MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -100,7 +100,7 @@ class SignUpActivity : AppCompatActivity() {
                 }
                 else {
                     val message= task.exception!!.toString()
-                    Toast.makeText(this, "Error: $message", Toast.LENGTH_LONG)
+                    Toast.makeText(this, "Error: $message", Toast.LENGTH_LONG).show()
                     FirebaseAuth.getInstance().signOut()
                     progressDialog.dismiss()
                 }
