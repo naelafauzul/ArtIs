@@ -3,13 +3,11 @@ package com.example.artis
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.example.artis.Fragments.HomeFragment
 import com.example.artis.Fragments.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
 
@@ -40,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-        moveToFragment(SearchFragment())
+        moveToFragment(HomeFragment())
     }
 
     private fun moveToFragment(fragment: Fragment){

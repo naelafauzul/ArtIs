@@ -15,7 +15,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/search_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:layout_marginTop="4dp"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp">
@@ -28,8 +28,9 @@
 
                 <ImageView
                     android:id="@+id/search_fragmennt_icon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/search"
                     />
                 <com.google.android.material.textfield.TextInputLayout

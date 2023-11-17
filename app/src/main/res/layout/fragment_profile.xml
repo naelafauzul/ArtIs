@@ -9,58 +9,84 @@
     tools:context=".Fragments.ProfileFragment">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/app_bar_layout_profile_frag"
-        android:background="@android:color/white">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/profile_toolbar"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/home_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/tertiary_container">
+            android:background="@color/tertiary_container"
+            app:theme="@style/Widget.Material3.Toolbar">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/profile_fragment_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:text="."
-                    android:textColor="@android:color/black"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
 
                 <ImageView
                     android:id="@+id/artist_image"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentLeft="true"
-                    android:src="@drawable/artist" />
-
-                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="210dp"
-                    android:layout_toEndOf="@+id/artist_image"
-                    android:src="@drawable/likes" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/artist" />
 
-                <ImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/profile_icon" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="#FBE3EB"
+                        android:backgroundTint="#FBE3EB"
+                        app:cardBackgroundColor="#FBE3EB"
+                        app:cardElevation="0dp"
+                        app:cardMaxElevation="0dp">
+
+                        <ImageButton
+                            android:id="@+id/likedButton"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            android:background="#00FFFFFF"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/heart" />
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        app:cardBackgroundColor="#00FFFFFF"
+                        app:cardElevation="0dp"
+                        app:cardMaxElevation="0dp">
+
+                        <ImageButton
+                            android:id="@+id/profileButton"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            android:background="#00FFFFFF"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/profile_icon" />
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
 
             </RelativeLayout>
-
-        </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -226,7 +252,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:orientation="horizontal"
                 android:layout_marginTop="15dp"
                 android:layout_marginLeft="12dp"
@@ -236,7 +262,7 @@
                 <ImageButton
                     android:id="@+id/images_grid_view_btn"
                     style="@android:attr/buttonBarButtonStyle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:scaleType="fitCenter"
@@ -245,7 +271,7 @@
                 <ImageButton
                     android:id="@+id/images_save_btn"
                     style="@android:attr/buttonBarButtonStyle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:scaleType="fitCenter"
@@ -261,45 +287,25 @@
 
                 <ImageView
                     android:id="@+id/post1"
-                    android:layout_width="189dp"
+                    android:layout_width="match_parent"
                     android:layout_height="110dp"
                     android:layout_marginTop="5dp"
                     android:src="@drawable/image1"
+                    android:layout_weight="1"
                     android:scaleType="fitXY"/>
 
                 <ImageView
                     android:id="@+id/post2"
-                    android:layout_width="193dp"
+                    android:layout_width="match_parent"
                     android:layout_height="110dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
                     android:src="@drawable/image2"
+                    android:layout_weight="1"
                     android:scaleType="fitXY"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp">
 
-                <ImageView
-                    android:id="@+id/post3"
-                    android:layout_width="189dp"
-                    android:layout_height="110dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/image1"
-                    android:scaleType="fitXY"/>
-
-                <ImageView
-                    android:id="@+id/post4"
-                    android:layout_width="193dp"
-                    android:layout_height="110dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/image2"
-                    android:scaleType="fitXY"/>
-            </LinearLayout>
 
         </LinearLayout>
 
