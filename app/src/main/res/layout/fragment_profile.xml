@@ -217,7 +217,8 @@
                         android:textAllCaps="false"
                         android:textSize="11sp"
                         android:backgroundTint="@color/tertiary"
-                        app:cornerRadius="50dp" />
+                        app:cornerRadius="50dp"
+                        />
 
 
                 </LinearLayout>

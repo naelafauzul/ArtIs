@@ -40,8 +40,6 @@
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/save_edited_info"/>
 
-
-
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
@@ -67,72 +65,90 @@
         android:layout_marginTop="6dp"
         android:textStyle="bold"
         android:textSize="16dp"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/black"
         android:layout_below="@+id/profile_image_view_profile_frag"/>
-    
-    <EditText
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/full_name_profile_frag"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/change_image_text_btn"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="16dp"
-        android:inputType="text"
-        android:hint="Full Name"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="16dp">
 
-    <EditText
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Full Name"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/username_profile_frag"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/full_name_profile_frag"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="16dp"
-        android:inputType="text"
-        android:hint="Username"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="16dp">
 
-    <EditText
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Username"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/bio_profile_frag"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/username_profile_frag"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="16dp"
-        android:inputType="text"
-        android:hint="Bio"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="16dp">
 
-    <Button
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Work"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/logout_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="6dp"
-        android:background="@drawable/button_background"
-        android:layout_above="@+id/delete_account_btn"
         android:text="Logout"
-        android:textColor="@color/colorBlack"
-        android:textSize="16dp"
+        android:layout_above="@+id/delete_account_btn"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false"
+        app:backgroundTint="@color/colorPrimaryDark" />
 
-
-
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/delete_account_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="6dp"
         android:text="Delete Account"
         android:textAllCaps="false"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        android:textColor="@android:color/white"
-        android:textSize="16dp"/>
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorPrimaryDark" />
+
 
 
 </RelativeLayout>
