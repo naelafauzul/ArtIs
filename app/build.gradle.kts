@@ -57,7 +57,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
     implementation ("com.google.firebase:firebase-core:20.0.0")
-    implementation ("com.squareup.picasso:picasso: 2.71828")
+    implementation("com.squareup.picasso:picasso:2.71828")
     implementation("com.google.firebase:firebase-auth:22.3.0")
     implementation("com.google.firebase:firebase-database:20.3.0")
     implementation("com.google.firebase:firebase-storage:20.3.0")

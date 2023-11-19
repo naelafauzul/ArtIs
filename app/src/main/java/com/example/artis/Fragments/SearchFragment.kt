@@ -1,12 +1,12 @@
 package com.example.artis.Fragments
 
 import android.os.Bundle
-import android.renderscript.Sampler.Value
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,9 +29,11 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class SearchFragment : Fragment() {
+    private lateinit var searchEditText: EditText
     private var recyclerView: RecyclerView? = null
     private var userAdapter: UserAdapter? = null
     private var mUser: MutableList<User>? = null
+    
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -55,22 +57,21 @@ class SearchFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recycler_view_search)
         recyclerView?.setHasFixedSize(true)
         recyclerView?.layoutManager = LinearLayoutManager(context)
+        searchEditText = view.findViewById(R.id.search_edit_text)
 
         mUser = ArrayList()
         userAdapter = context?.let { UserAdapter(it, mUser as ArrayList<User>, true) }
         recyclerView?.adapter = userAdapter
 
-        view.search_edit_text.addTextChangedListener(object : TextWatcher
-        {
+        searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(view?.search_edit_text?.text.toString() == ""){
+                if (searchEditText.text.toString() == "") {
 
-                }
-                else{
+                } else {
                     recyclerView?.visibility = View.VISIBLE
                     retrieveUsers()
                     searchUser(s.toString().toLowerCase())
@@ -91,13 +92,13 @@ class SearchFragment : Fragment() {
             .startAt(input)
             .endAt(input + "\uf8ff")
 
-        query.addValueEventListener(object : ValueEventListener{
+        query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 mUser?.clear()
 
-                for (snapshot in dataSnapshot.children){
+                for (snapshot in dataSnapshot.children) {
                     val user = snapshot.getValue(User::class.java)
-                    if (user != null){
+                    user?.let {
                         mUser?.add(user)
                     }
                 }
@@ -105,34 +106,34 @@ class SearchFragment : Fragment() {
                 userAdapter?.notifyDataSetChanged()
             }
 
-            override fun onCancelled(p0: DatabaseError) {
-                TODO("Not yet implemented")
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle cancelled event if needed
             }
         })
     }
 
     private fun retrieveUsers() {
         val usersRef = FirebaseDatabase.getInstance().getReference().child("Users")
-        usersRef.addValueEventListener(object : ValueEventListener{
+        usersRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if(view?.search_edit_text?.text.toString() == ""){
+                if (searchEditText.text.toString().isEmpty()) { // Check if search_edit_text is empty
                     mUser?.clear()
 
-                    for (snapshot in dataSnapshot.children){
+                    for (snapshot in dataSnapshot.children) {
                         val user = snapshot.getValue(User::class.java)
-                        if (user != null){
+                        user?.let {
                             mUser?.add(user)
                         }
                     }
+
                     userAdapter?.notifyDataSetChanged()
                 }
             }
 
-            override fun onCancelled(p0: DatabaseError) {
-                TODO("Not yet implemented")
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle cancelled event if needed
             }
         })
-
     }
 
     companion object {

@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import de.hdodenhof.circleimageview.CircleImageView
+import com.squareup.picasso.Picasso
 
 class UserAdapter (private var mContext: Context,
                    private var mUser: List<User>,
