@@ -103,7 +103,7 @@ class UserAdapter (private var mContext: Context,
     class ViewHolder (@NonNull itemView: View) : RecyclerView.ViewHolder(itemView) {
         var userNameTextView: TextView = itemView.findViewById(R.id.user_name_search)
         var userFullNameTextView: TextView = itemView.findViewById(R.id.user_full_name_search)
-        var userProfileImage: CircleImageView = itemView.findViewById(R.id.user_name_search)
+        var userProfileImage: CircleImageView = itemView.findViewById(R.id.user_profile_image_search)
         var userFollowButton: Button = itemView.findViewById(R.id.follow_btn_search)
     }
 
