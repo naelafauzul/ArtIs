@@ -263,20 +263,25 @@
                 <ImageButton
                     android:id="@+id/images_grid_view_btn"
                     style="@android:attr/buttonBarButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:scaleType="fitCenter"
                     android:src="@drawable/grid" />
 
                 <ImageButton
                     android:id="@+id/images_save_btn"
                     style="@android:attr/buttonBarButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:scaleType="fitCenter"
                     android:src="@drawable/save_large_icon" />
+
+                <ImageButton
+                    android:id="@+id/qrButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/qrcode" />
 
             </LinearLayout>
 

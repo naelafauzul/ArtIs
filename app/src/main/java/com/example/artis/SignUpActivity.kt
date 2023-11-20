@@ -101,6 +101,9 @@ class SignUpActivity : AppCompatActivity() {
         val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
         val usersRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("Users")
 
+        // Generate Dynamic Link Firebase untuk User
+        val dynamicLink = "https://artis.page.link/user?userId=$currentUserId&token=secureToken"
+
         val userMap = HashMap<String, Any>()
         userMap["uid"] = currentUserId
         userMap["fullname"] = fullName.toLowerCase()
@@ -108,6 +111,17 @@ class SignUpActivity : AppCompatActivity() {
         userMap["email"] = email
         userMap["work"] = "I'm an artist"
         userMap["image"] = "https://firebasestorage.googleapis.com/v0/b/artist-app-ea1fd.appspot.com/o/Default%20Images%2Fprofile.png?alt=media&token=e1e73fd6-4844-4d04-87da-9c02d1437eb3"
+
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null && user.uid == currentUserId) {
+            // User sudah login dan dapat mengakses link QR Code
+            // Pindah ke halaman profile user lain
+        } else {
+            // User diharap login untuk membuka tautan QR Code
+            // Pindah halaman Sign Up
+        }
+        // Tambah link unik ke UserMap
+        userMap["qrCodeLink"] = dynamicLink
 
         usersRef.child(currentUserId).setValue(userMap)
             .addOnCompleteListener{task ->
