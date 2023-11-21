@@ -93,12 +93,9 @@ class UserAdapter (private var mContext: Context,
         }
     }
 
-
-
     override fun getItemCount(): Int {
         return mUser.size
     }
-
 
     class ViewHolder (@NonNull itemView: View) : RecyclerView.ViewHolder(itemView) {
         var userNameTextView: TextView = itemView.findViewById(R.id.user_name_search)
