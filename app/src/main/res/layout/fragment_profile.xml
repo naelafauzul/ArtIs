@@ -246,7 +246,7 @@
                     android:id="@+id/bio_profile_frag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bio"
+                    android:text="Current Work"
                     android:textSize="13dp"
                     android:textColor="@android:color/black"/>
             </LinearLayout>
@@ -263,23 +263,17 @@
                 <ImageButton
                     android:id="@+id/images_grid_view_btn"
                     style="@android:attr/buttonBarButtonStyle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:scaleType="fitCenter"
                     android:src="@drawable/grid" />
 
                 <ImageButton
-                    android:id="@+id/images_save_btn"
-                    style="@android:attr/buttonBarButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/save_large_icon" />
-
-                <ImageButton
                     android:id="@+id/qrButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:scaleType="fitCenter"
                     android:src="@drawable/qrcode" />
 

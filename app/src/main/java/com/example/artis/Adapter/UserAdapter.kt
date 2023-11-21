@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.annotation.NonNull
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.artis.Fragments.ProfileFragment
 import com.example.artis.Model.User
-import androidx.annotation.NonNull
 import com.example.artis.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -17,8 +18,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import de.hdodenhof.circleimageview.CircleImageView
 import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 
 class UserAdapter (private var mContext: Context,
                    private var mUser: List<User>,
@@ -38,6 +39,17 @@ class UserAdapter (private var mContext: Context,
         Picasso.get().load(user.getImage()).placeholder(R.drawable.profile).into(holder.userProfileImage)
 
         checkFollowingStatus(user.getUID(), holder.userFollowButton)
+
+        holder.itemView.setOnClickListener {
+            val pref = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
+            pref.putString("profileId", user.getUID())
+            pref.apply()
+
+            val profileFragment = ProfileFragment()
+            (mContext as FragmentActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, profileFragment)
+                .commit()
+        }
 
         holder.userFollowButton.setOnClickListener {
             if(holder.userFollowButton.text.toString() == "Follow"){
