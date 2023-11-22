@@ -307,7 +307,9 @@
                         android:id="@+id/post1"
                         android:layout_width="match_parent"
                         android:layout_height="110dp"
+                        android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:scaleType="fitXY"
                         android:src="@drawable/image1" />
@@ -316,8 +318,9 @@
                         android:id="@+id/post2"
                         android:layout_width="match_parent"
                         android:layout_height="110dp"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:scaleType="fitXY"
                         android:src="@drawable/image2" />
