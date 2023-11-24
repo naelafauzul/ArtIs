@@ -1,5 +1,6 @@
 package com.example.artis
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -21,6 +22,8 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_add_post -> {
+                item.isChecked = false
+                startActivity(Intent(this@MainActivity, AddPostActivity::class.java))
                 return@OnNavigationItemSelectedListener true
             }
 
