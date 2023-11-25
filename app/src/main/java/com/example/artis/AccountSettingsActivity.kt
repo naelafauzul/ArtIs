@@ -169,7 +169,7 @@ class AccountSettingsActivity : AppCompatActivity() {
 
                     user?.let {
                         Picasso.get()
-                            .load(it.getImage())
+                            .load(user!!.getImage())
                             .placeholder(R.drawable.profile)
                             .into(profile_image_view_profile_frag)
 
