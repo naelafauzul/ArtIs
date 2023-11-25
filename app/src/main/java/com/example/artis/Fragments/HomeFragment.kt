@@ -63,8 +63,12 @@ class HomeFragment : Fragment() {
         btn.setOnClickListener {
             if (isLiked) {
                 btn.setImageResource(R.drawable.likes)
+                TODO("Kode buat nambah data post yang di likes dibawah ini nanti")
+                //...
             } else {
                 btn.setImageResource(R.drawable.likes_hearted)
+                TODO("Kode buat nambah data post yang di unllikes dibawah ini nanti")
+                //...
             }
 
             isLiked = !isLiked
