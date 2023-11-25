@@ -19,6 +19,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
         // Inflate the layout for this fragment
 
@@ -34,12 +35,25 @@ class HomeFragment : Fragment() {
 
         }
 
+        // nanti di loop
+        setupToggleButton(view.findViewById(R.id.heartPost1))
+        setupToggleButton(view.findViewById(R.id.heartPost2))
+
         return view
 
     }
 
+    private fun setupToggleButton(btn: ImageButton) {
+        var isLiked = false
 
+        btn.setOnClickListener {
+            if (isLiked) {
+                btn.setImageResource(R.drawable.likes)
+            } else {
+                btn.setImageResource(R.drawable.likes_hearted)
+            }
 
-
-
+            isLiked = !isLiked
+        }
+    }
 }

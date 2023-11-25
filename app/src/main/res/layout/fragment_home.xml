@@ -159,7 +159,7 @@
                                         app:contentPaddingTop="5dp">
 
                                         <ImageButton
-                                            android:id="@+id/imageButton3"
+                                            android:id="@+id/heartPost1"
                                             android:layout_width="20dp"
                                             android:layout_height="20dp"
                                             android:layout_gravity="center"
@@ -320,14 +320,14 @@
                                         app:contentPaddingTop="5dp">
 
                                         <ImageButton
-                                            android:id="@+id/imageButton6"
+                                            android:id="@+id/heartPost2"
                                             android:layout_width="20dp"
                                             android:layout_height="20dp"
                                             android:layout_gravity="center"
                                             android:adjustViewBounds="true"
                                             android:background="#00FFFFFF"
                                             android:scaleType="fitCenter"
-                                            android:src="@drawable/likes_hearted" />
+                                            android:src="@drawable/likes" />
                                     </androidx.cardview.widget.CardView>
 
                                     <androidx.cardview.widget.CardView
