@@ -37,6 +37,7 @@ class HomeFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
+        /*
         // Inflate the layout for this fragment
         val profileButton: ImageButton = view.findViewById(R.id.profileButton)
         profileButton.setOnClickListener {
@@ -52,11 +53,10 @@ class HomeFragment : Fragment() {
         setupToggleButton(view.findViewById(R.id.heartPost1))
         setupToggleButton(view.findViewById(R.id.heartPost2))
 
+*/
 
-        return view
 
-    }
-
+        /*
     private fun setupToggleButton(btn: ImageButton) {
         var isLiked = false
 
@@ -73,19 +73,22 @@ class HomeFragment : Fragment() {
 
             isLiked = !isLiked
         }
-    }
-
-}
-
-       /* val view = inflater.inflate(R.layout.fragment_home, container, false)
+    } */
 
         var recyclerView: RecyclerView? = null
-        recyclerView = view.findViewById(R.id.recyler_view_home)
-        val linearLayoutManager: LinearLayoutManager(context)
+        recyclerView = view.findViewById(R.id.app_bar_layout) //harusnya recycler_view_home
+        val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.stackFromEnd = true
         recyclerView.layoutManager = linearLayoutManager
 
+        postList = ArrayList()
+        postAdapter = context?.let { PostAdapter(it, postList as ArrayList<Post>) }
+        recyclerView.adapter = postAdapter
+
+        checkFollowings()
+
+        return view
 
     }
 
@@ -97,8 +100,9 @@ class HomeFragment : Fragment() {
             .child("Follow").child(FirebaseAuth.getInstance().currentUser!!.uid)
             .child("Following")
 
-        followingRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
+        followingRef.addValueEventListener(object : ValueEventListener
+        {
+            override fun onDataChange(p0: DataSnapshot) {
                 if (p0.exists()) {
                     (followingList as ArrayList<String>).clear()
 
@@ -139,4 +143,5 @@ class HomeFragment : Fragment() {
 
             override fun onCancelled(p0: DatabaseError) {}
         })
-    }*/
+    }
+}
