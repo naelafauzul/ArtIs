@@ -34,21 +34,24 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
 
     ): View? {
-        // Inflate the layout for this fragment
 
-               val profileButton: ImageButton = view.findViewById(R.id.profileButton)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+
+        // Inflate the layout for this fragment
+        val profileButton: ImageButton = view.findViewById(R.id.profileButton)
         profileButton.setOnClickListener {
+
             val profileFragment = ProfileFragment()
             val transaction = requireFragmentManager().beginTransaction()
             transaction.replace(R.id.fragment_container, profileFragment)
             transaction.addToBackStack(null)
             transaction.commit()
-//codingan abi
         }
 
         // nanti di loop
         setupToggleButton(view.findViewById(R.id.heartPost1))
         setupToggleButton(view.findViewById(R.id.heartPost2))
+
 
         return view
 
@@ -60,8 +63,12 @@ class HomeFragment : Fragment() {
         btn.setOnClickListener {
             if (isLiked) {
                 btn.setImageResource(R.drawable.likes)
+                TODO("Kode buat nambah data post yang di likes dibawah ini nanti")
+                //...
             } else {
                 btn.setImageResource(R.drawable.likes_hearted)
+                TODO("Kode buat nambah data post yang di unllikes dibawah ini nanti")
+                //...
             }
 
             isLiked = !isLiked
@@ -133,4 +140,3 @@ class HomeFragment : Fragment() {
             override fun onCancelled(p0: DatabaseError) {}
         })
     }*/
-}

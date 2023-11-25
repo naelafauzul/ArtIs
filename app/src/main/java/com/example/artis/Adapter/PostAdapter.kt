@@ -2,13 +2,10 @@ package com.example.artis.Adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewParent
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView.ItemView
 //import android.recyclerView.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.artis.Model.Post
@@ -21,7 +18,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
-import org.checkerframework.checker.nullness.qual.NonNull
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -50,7 +46,7 @@ class PostAdapter
         publisherInfo(holder.profileImage, holder.userName, holder.publisher, post.getPublisher())
     }
 
-    inner class ViewHolder(nonNull: NonNull, itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
         var profileImage : CircleImageView
         var postImage : ImageView
@@ -77,7 +73,7 @@ class PostAdapter
         }
     }
 
-    private fun publisherInfo(profileImage: Any, userName: TextView, publisher: TextView, publisherID: String)
+    private fun publisherInfo(profileImage: CircleImageView, userName: TextView, publisher: TextView, publisherID: String)
     {
         val usersRef = FirebaseDatabase.getInstance().reference.child("Users").child(publisherID)
 
