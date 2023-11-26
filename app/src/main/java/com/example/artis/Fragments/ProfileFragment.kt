@@ -12,7 +12,12 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.artis.AccountSettingsActivity
+import com.example.artis.Adapter.MyImagesAdapter
+import com.example.artis.Model.Post
 import com.example.artis.Model.User
 import com.example.artis.QRProfileActivity
 import com.example.artis.R
@@ -23,6 +28,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
+import java.lang.reflect.Array
+import java.util.Collections
 
 
 class ProfileFragment : Fragment() {
@@ -34,6 +41,9 @@ class ProfileFragment : Fragment() {
     private lateinit var pro_image_profile_frag: ImageView
     private lateinit var full_name_profile_frag: TextView
     private lateinit var bio_profile_frag: TextView
+
+    var postList: List<Post>? = null
+    var myImagesAdapter: MyImagesAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,6 +68,16 @@ class ProfileFragment : Fragment() {
         } else if (profileId != firebaseUser.uid) {
             checkFollowAndFollowButtonStatus()
         }
+
+        var recyclerViewUploadImage : RecyclerView
+        recyclerViewUploadImage = view.findViewById(R.id.recycler_view_upload_pic)
+        recyclerViewUploadImage.setHasFixedSize(true)
+        val linearLayoutManager: LinearLayoutManager = GridLayoutManager(context, 3)
+        recyclerViewUploadImage.layoutManager = linearLayoutManager
+
+        postList = ArrayList()
+        myImagesAdapter = context?.let { MyImagesAdapter(it, postList as ArrayList<Post>) }
+        recyclerViewUploadImage.adapter = myImagesAdapter
 
 
         val qrButton: ImageButton = view.findViewById(R.id.qrButton)
@@ -106,6 +126,7 @@ class ProfileFragment : Fragment() {
         getFollowers()
         getFollowings()
         getUserInfo()
+        myPhotos()
 
         qrButton.setOnClickListener {
             val intent = Intent(activity, QRProfileActivity::class.java)
@@ -177,6 +198,35 @@ class ProfileFragment : Fragment() {
         })
     }
 
+    private fun myPhotos()
+    {
+        val postsRef = FirebaseDatabase.getInstance().reference.child("Posts")
+
+        postsRef.addValueEventListener(object : ValueEventListener
+        {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (p0.exists())
+                {
+                    (postList as ArrayList<Post>).clear()
+
+                    for (snapshot in p0.children)
+                    {
+                        val post = snapshot.getValue(Post::class.java)
+                        if (post.getPublisher().equals(profileId))
+                        {
+                            (postList as ArrayList<Post>).add(post)
+                        }
+                        Collections.reverse(postList)
+                        myImagesAdapter!!.notifyDataSetChanged()
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
     private fun getUserInfo() {
         val usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(profileId)
 
