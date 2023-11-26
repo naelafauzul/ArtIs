@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.artis.Adapter.CommentsAdapter
+import com.example.artis.Model.Comment
 import com.example.artis.Model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -19,6 +23,8 @@ class CommentsActivity : AppCompatActivity() {
     private var postId = ""
     private var publisherId = ""
     private var firebaseUser: FirebaseUser? = null
+    private var commentAdapter: CommentsAdapter? = null
+    private var commentList: MutableList<com.example.artis.Model.Comment>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +36,18 @@ class CommentsActivity : AppCompatActivity() {
 
         firebaseUser = FirebaseAuth.getInstance().currentUser
 
+        var recyclerView: RecyclerView
+        recyclerView = findViewById(R.id.recycler_view_comments)
+        val linearLayoutManager = LinearLayoutManager(this)
+        linearLayoutManager.reverseLayout = true
+        recyclerView.layoutManager = linearLayoutManager
+
+        commentList = ArrayList()
+        commentAdapter = CommentAdapter(this, commentList)
+        recyclerView.adapter = commentAdapter
+
         getUserInfo()
+        readComments()
         
         post_comment.setOnClickListener(View.OnClickListener {
             if (add_comment!!.text.toSring() == "")
@@ -68,6 +85,55 @@ class CommentsActivity : AppCompatActivity() {
                     val user = p0.getValue<User>(User::class.java)
                     Picasso.get().load(user!!.getImage()).placeholder(R.drawable.profile)
                         .into(profile_image_comment)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
+
+    private fun getPostImage() {
+        val postRef = FirebaseDatabase.getInstance()
+            .reference.child("Posts")
+            .child(postId!!).child("postimage")
+
+        postRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                if (p0.exists()) {
+                    val image = p0.value.toString()
+                    Picasso.get().load(image).placeholder(R.drawable.profile)
+                        .into(post_image_comment)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
+
+    private fun readComments()
+    {
+        val commentsRef = FirebaseDatabase.getInstance()
+            .reference.child("Comments")
+            .child(postId)
+
+        commentsRef.addValueEventListener(object : ValueEventListener
+        {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (p0.exists())
+                {
+                    commentList!!.clear()
+
+                    for(snapshot in p0.children)
+                    {
+                        val comment = snapshot.getValue(com.example.artis.Model.Comment::class.java)
+                        commentList!!.add(comment!!)
+                    }
+
+                    commentAdapter!!.notifyDataSetChanged()
                 }
             }
 
