@@ -8,18 +8,10 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.RequestQueue
-import com.android.volley.Response
-import com.android.volley.RetryPolicy
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageView
 import com.canhub.cropper.options
@@ -31,7 +23,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
-import org.json.JSONObject
 import java.io.IOException
 
 class AddPostActivity : AppCompatActivity() {
@@ -41,10 +32,9 @@ class AddPostActivity : AppCompatActivity() {
     private lateinit var saveButton: ImageView
     private lateinit var imagePost: ImageView
     private lateinit var descriptionPost: EditText
-    private lateinit var buttonRekomendasi: Button
     private lateinit var responseFromGPT: EditText
 
-    var url = "https://api.openai.com/v1/completions"
+    val apiServices = ApiServices(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,34 +58,50 @@ class AddPostActivity : AppCompatActivity() {
                     includeGallery = true,
                     includeCamera = true
                 )
-                setAspectRatio(2, 1)
+                setAspectRatio(3, 2)
                 setGuidelines(CropImageView.Guidelines.ON)
                 setOutputCompressFormat(Bitmap.CompressFormat.JPEG)
                 setOutputCompressQuality(85)
             }
         )
 
-        responseFromGPT.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        responseFromGPT.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEND) {
-                // setting response tv on below line.
-                descriptionPost.setText("Please wait the caption recommendation")
-                // validating text
-                if (responseFromGPT.text.toString().length > 0) {
-                    // calling get response to get the response.
-                    getResponse( "You are a literary assistant, so recommend a beautiful caption about this art in bahasa indonesia" + responseFromGPT.text.toString())
+                if (responseFromGPT.text.toString().isNotEmpty()) {
+                    apiServices.getResponseFromGPT(
+                        "You are a literary assistant, so recommend especially beautiful or poetic captions or sentences (write in bahasa indonesia) about art for which the user inputs descriptions: " + responseFromGPT.text.toString(),
+                        { response ->
+                            descriptionPost.setText(response)
+                        },
+                        { error ->
+                            Log.e("TAGAPI", error)
+                            print(error)
+                        }
+                    )
                 } else {
-                    Toast.makeText(this, "Please enter your art specifications", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Please enter your art specifications", Toast.LENGTH_SHORT)
+                        .show()
                 }
-                return@OnEditorActionListener true
+                return@setOnEditorActionListener true
             }
             false
-        })
+        }
     }
 
     private fun uploadImage() {
         when {
-            imageUri == null -> Toast.makeText(this, "Please select an image first.", Toast.LENGTH_LONG).show()
-            descriptionPost.text.toString().isEmpty() -> Toast.makeText(this, "Please write a description first.", Toast.LENGTH_LONG).show()
+            imageUri == null -> Toast.makeText(
+                this,
+                "Please select an image first.",
+                Toast.LENGTH_LONG
+            ).show()
+
+            descriptionPost.text.toString().isEmpty() -> Toast.makeText(
+                this,
+                "Please write a description first.",
+                Toast.LENGTH_LONG
+            ).show()
+
             else -> {
                 val progressDialog = ProgressDialog(this)
                 progressDialog.setTitle("Account Settings")
@@ -106,7 +112,7 @@ class AddPostActivity : AppCompatActivity() {
 
                 val uploadTask = fileRef.putFile(imageUri!!)
 
-                uploadTask.continueWithTask(Continuation <UploadTask.TaskSnapshot, Task<Uri>> { task ->
+                uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
                     if (task.isSuccessful) {
                         task.exception?.let {
                             throw it
@@ -131,16 +137,26 @@ class AddPostActivity : AppCompatActivity() {
                         postMap["postimage"] = myUrl
 
                         postId?.let {
-                            ref.child(it).updateChildren(postMap).addOnCompleteListener { postTask ->
-                                if (postTask.isSuccessful) {
-                                    Toast.makeText(this, "Post uploaded successfully.", Toast.LENGTH_LONG).show()
-                                    val intent = Intent(this@AddPostActivity, MainActivity::class.java)
-                                    startActivity(intent)
-                                    finish()
-                                } else {
-                                    Toast.makeText(this, "Failed to upload post.", Toast.LENGTH_LONG).show()
+                            ref.child(it).updateChildren(postMap)
+                                .addOnCompleteListener { postTask ->
+                                    if (postTask.isSuccessful) {
+                                        Toast.makeText(
+                                            this,
+                                            "Post uploaded successfully.",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                        val intent =
+                                            Intent(this@AddPostActivity, MainActivity::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    } else {
+                                        Toast.makeText(
+                                            this,
+                                            "Failed to upload post.",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
                                 }
-                            }
                         }
                     } else {
                         Toast.makeText(this, "Failed to get image URL.", Toast.LENGTH_LONG).show()
@@ -156,7 +172,8 @@ class AddPostActivity : AppCompatActivity() {
             uriContent?.let { uri ->
                 imageUri = uri
                 try {
-                    val bitmap = MediaStore.Images.Media.getBitmap(this@AddPostActivity.contentResolver, uri)
+                    val bitmap =
+                        MediaStore.Images.Media.getBitmap(this@AddPostActivity.contentResolver, uri)
                     imagePost.setImageBitmap(bitmap)
                 } catch (e: IOException) {
                     e.printStackTrace()
@@ -166,65 +183,4 @@ class AddPostActivity : AppCompatActivity() {
             val exception = result.error
         }
     }
-
-    private fun getResponse(query: String) {
-        // setting text on for question on below line.
-        responseFromGPT.setText("")
-        // creating a queue for request queue.
-        val queue: RequestQueue = Volley.newRequestQueue(applicationContext)
-        // creating a json object on below line.
-        val jsonObject: JSONObject? = JSONObject()
-        // adding params to json object.
-        jsonObject?.put("model", "text-davinci-003")
-        jsonObject?.put("prompt", query)
-        jsonObject?.put("temperature", 0)
-        jsonObject?.put("max_tokens", 100)
-        jsonObject?.put("top_p", 1)
-        jsonObject?.put("frequency_penalty", 0.0)
-        jsonObject?.put("presence_penalty", 0.0)
-
-        // on below line making json object request.
-        val postRequest: JsonObjectRequest =
-            // on below line making json object request.
-            object : JsonObjectRequest(
-                Method.POST, url, jsonObject,
-                Response.Listener { response ->
-                    // on below line getting response message and setting it to text view.
-                    val responseMsg: String =
-                        response.getJSONArray("choices").getJSONObject(0).getString("text")
-                    descriptionPost.setText(responseMsg)
-                },
-                // adding on error listener
-                Response.ErrorListener { error ->
-                    Log.e("TAGAPI", "Error is : " + error.message + "\n" + error)
-                }) {
-                override fun getHeaders(): kotlin.collections.MutableMap<kotlin.String, kotlin.String> {
-                    val params: MutableMap<String, String> = HashMap()
-                    // adding headers on below line.
-                    params["Content-Type"] = "application/json"
-                    params["Authorization"] =
-                        "Bearer "
-                    return params;
-                }
-            }
-
-        // on below line adding retry policy for our request.
-        postRequest.setRetryPolicy(object : RetryPolicy {
-            override fun getCurrentTimeout(): Int {
-                return 50000
-            }
-
-            override fun getCurrentRetryCount(): Int {
-                return 50000
-            }
-
-            @Throws(VolleyError::class)
-            override fun retry(error: VolleyError) {
-            }
-        })
-        // on below line adding our request to queue.
-        queue.add(postRequest)
-    }
 }
-
-
