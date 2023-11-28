@@ -15,7 +15,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.RequestQueue
-import com.android.volley.Response
 import com.android.volley.RetryPolicy
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
@@ -23,6 +22,7 @@ import com.android.volley.toolbox.Volley
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageView
 import com.canhub.cropper.options
+import com.google.android.gms.common.api.Response
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -33,6 +33,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import org.json.JSONObject
 import java.io.IOException
+import java.lang.reflect.Method
 
 class AddPostActivity : AppCompatActivity() {
     private var myUrl = ""
@@ -188,14 +189,14 @@ class AddPostActivity : AppCompatActivity() {
             // on below line making json object request.
             object : JsonObjectRequest(
                 Method.POST, url, jsonObject,
-                Response.Listener { response ->
+                com.android.volley.Response.Listener { response ->
                     // on below line getting response message and setting it to text view.
                     val responseMsg: String =
                         response.getJSONArray("choices").getJSONObject(0).getString("text")
                     descriptionPost.setText(responseMsg)
                 },
                 // adding on error listener
-                Response.ErrorListener { error ->
+                com.android.volley.Response.ErrorListener { error ->
                     Log.e("TAGAPI", "Error is : " + error.message + "\n" + error)
                 }) {
                 override fun getHeaders(): kotlin.collections.MutableMap<kotlin.String, kotlin.String> {
