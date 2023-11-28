@@ -66,9 +66,9 @@ class CommentsAdapter(private val mContext: Context,
         userREf.addValueEventListener(object : ValueEventListener
         {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (p0.exists())
+                if (snapshot.exists())
                 {
-                    val user = p0.getValue(User::class.java)
+                    val user = snapshot.getValue(User::class.java)
 
                     Picasso.get().load(user!!.getImage()).placeholder(R.drawable.profile).into(imageProfile)
 

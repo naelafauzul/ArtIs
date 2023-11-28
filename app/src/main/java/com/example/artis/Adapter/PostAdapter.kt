@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 //import android.recyclerView.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.artis.CommentsActivity
 import com.example.artis.MainActivity
 import com.example.artis.Model.Post
 import com.example.artis.Model.User
@@ -22,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+
 
 
 class PostAdapter

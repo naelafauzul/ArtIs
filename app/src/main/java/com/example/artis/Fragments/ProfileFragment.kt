@@ -205,14 +205,14 @@ class ProfileFragment : Fragment() {
         postsRef.addValueEventListener(object : ValueEventListener
         {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (p0.exists())
+                if (snapshot.exists())
                 {
                     (postList as ArrayList<Post>).clear()
 
-                    for (snapshot in p0.children)
+                    for (snapshot in snapshot.children)
                     {
                         val post = snapshot.getValue(Post::class.java)
-                        if (post.getPublisher().equals(profileId))
+                        if (post != null && post.getPublisher().equals(profileId))
                         {
                             (postList as ArrayList<Post>).add(post)
                         }

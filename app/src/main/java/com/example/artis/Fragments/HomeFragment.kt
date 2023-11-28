@@ -37,23 +37,16 @@ class HomeFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        /*
+
         // Inflate the layout for this fragment
         val profileButton: ImageButton = view.findViewById(R.id.profileButton)
         profileButton.setOnClickListener {
-
             val profileFragment = ProfileFragment()
             val transaction = requireFragmentManager().beginTransaction()
             transaction.replace(R.id.fragment_container, profileFragment)
             transaction.addToBackStack(null)
             transaction.commit()
         }
-
-        // nanti di loop
-        setupToggleButton(view.findViewById(R.id.heartPost1))
-        setupToggleButton(view.findViewById(R.id.heartPost2))
-
-*/
 
 
         /*
@@ -76,7 +69,7 @@ class HomeFragment : Fragment() {
     } */
 
         var recyclerView: RecyclerView? = null
-        recyclerView = view.findViewById(R.id.app_bar_layout) //harusnya recycler_view_home
+        recyclerView = view.findViewById(R.id.recycler_view_home) //harusnya recycler_view_home
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.stackFromEnd = true
