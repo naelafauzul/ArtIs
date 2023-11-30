@@ -2,22 +2,22 @@ package com.example.artis.Model
 
 class Post {
 
-    private var postid: String = ""
+    private var postId: String = ""
     private var postimage: String = ""
     private var publisher: String = ""
     private var description: String = ""
 
     constructor()
 
-    constructor(postid: String, postimage: String, publisher: String, description: String){
-        this.postid = postid
+    constructor(postId: String, postimage: String, publisher: String, description: String){
+        this.postId = postId
         this.postimage = postimage
         this.publisher = publisher
         this.description = description
     }
 
     fun getPostid(): String {
-        return postid
+        return postId
     }
 
     fun getPostimage(): String {
@@ -33,7 +33,7 @@ class Post {
     }
 
     fun setPostid(postid: String) {
-        this.postid = postid
+        this.postId = postid
     }
 
     fun setPostimage(postimage: String) {
