@@ -120,6 +120,7 @@ class SignUpActivity : AppCompatActivity() {
             // User diharap login untuk membuka tautan QR Code
             // Pindah halaman Sign Up
         }
+
         // Tambah link unik ke UserMap
         userMap["qrCodeLink"] = dynamicLink
 

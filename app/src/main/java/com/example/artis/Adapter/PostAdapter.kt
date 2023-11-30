@@ -2,6 +2,7 @@ package com.example.artis.Adapter
 
 import android.content.Context
 import android.content.Intent
+import android.support.annotation.NonNull
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -165,7 +166,7 @@ class PostAdapter
         })
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class ViewHolder(@NonNull itemView: View) : RecyclerView.ViewHolder(itemView)
     {
         var profileImage : CircleImageView
         var postImage : ImageView
@@ -184,7 +185,7 @@ class PostAdapter
             likeButton = itemView.findViewById(R.id.post_image_like_btn)
             commentButton = itemView.findViewById(R.id.post_image_comment_btn)
             saveButton = itemView.findViewById(R.id.post_save_comment_btn)
-            userName = itemView.findViewById(R.id.user_name_post)
+            userName = itemView.findViewById(R.id.user_profile_image_post)
             likes = itemView.findViewById(R.id.likes)
             publisher = itemView.findViewById(R.id.publisher)
             description = itemView.findViewById(R.id.description)
@@ -201,6 +202,7 @@ class PostAdapter
                 if (p0.exists())
                 {
                     val user = p0.getValue(User::class.java)
+
                     Picasso.get().load(user!!.getImage()).placeholder(R.drawable.profile).into(profileImage)
                     userName.text = user!!.getUsername()
                     publisher.text = user!!.getFullName()

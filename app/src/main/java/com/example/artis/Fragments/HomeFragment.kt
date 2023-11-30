@@ -37,39 +37,8 @@ class HomeFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-
-        // Inflate the layout for this fragment
-        val profileButton: ImageButton = view.findViewById(R.id.profileButton)
-        profileButton.setOnClickListener {
-            val profileFragment = ProfileFragment()
-            val transaction = requireFragmentManager().beginTransaction()
-            transaction.replace(R.id.fragment_container, profileFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
-        }
-
-
-        /*
-    private fun setupToggleButton(btn: ImageButton) {
-        var isLiked = false
-
-        btn.setOnClickListener {
-            if (isLiked) {
-                btn.setImageResource(R.drawable.likes)
-                TODO("Kode buat nambah data post yang di likes dibawah ini nanti")
-                //...
-            } else {
-                btn.setImageResource(R.drawable.likes_hearted)
-                TODO("Kode buat nambah data post yang di unllikes dibawah ini nanti")
-                //...
-            }
-
-            isLiked = !isLiked
-        }
-    } */
-
         var recyclerView: RecyclerView? = null
-        recyclerView = view.findViewById(R.id.recycler_view_home) //harusnya recycler_view_home
+        recyclerView = view.findViewById(R.id.recycler_view_home)
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.stackFromEnd = true
@@ -80,6 +49,16 @@ class HomeFragment : Fragment() {
         recyclerView.adapter = postAdapter
 
         checkFollowings()
+
+        // Inflate the layout for this fragment
+        val profileButton: ImageButton = view.findViewById(R.id.profileButton)
+        profileButton.setOnClickListener {
+            val profileFragment = ProfileFragment()
+            val transaction = requireFragmentManager().beginTransaction()
+            transaction.replace(R.id.fragment_container, profileFragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
 
         return view
 
