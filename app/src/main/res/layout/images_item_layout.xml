@@ -12,4 +12,5 @@
         android:src="@drawable/profile"
         android:scaleType="centerCrop"/>
 
+
 </androidx.cardview.widget.CardView>
