@@ -108,7 +108,7 @@ class PostAdapter
             override fun onDataChange(p0: DataSnapshot) {
                 if (p0.exists())
                 {
-                   likes.text = p0.childrenCount.toString() + " Likes"
+                   likes.text = p0.childrenCount.toString()
                 }
 
             }
@@ -150,12 +150,12 @@ class PostAdapter
             override fun onDataChange(p0: DataSnapshot) {
                 if (p0.child(firebaseUser!!.uid).exists())
                 {
-                    likeButton.setImageResource(R.drawable.heart_clicked)
+                    likeButton.setImageResource(R.drawable.likes_hearted)
                     likeButton.tag = "Liked"
                 }
                 else
                 {
-                    likeButton.setImageResource(R.drawable.heart_not_clicked)
+                    likeButton.setImageResource(R.drawable.likes)
                     likeButton.tag = "Like"
                 }
             }
@@ -172,7 +172,7 @@ class PostAdapter
         var postImage : ImageView
         var likeButton : ImageView
         var commentButton : ImageView
-        var saveButton : ImageView
+        var shareButton : ImageView
         var userName : TextView
         var likes : TextView
         var description : TextView
@@ -183,7 +183,7 @@ class PostAdapter
             postImage = itemView.findViewById(R.id.post_image_home)
             likeButton = itemView.findViewById(R.id.post_image_like_btn)
             commentButton = itemView.findViewById(R.id.post_image_comment_btn)
-            saveButton = itemView.findViewById(R.id.post_save_comment_btn)
+            shareButton = itemView.findViewById(R.id.post_save_comment_btn)
             userName = itemView.findViewById(R.id.user_name_post)
             likes = itemView.findViewById(R.id.likes)
             description = itemView.findViewById(R.id.description)

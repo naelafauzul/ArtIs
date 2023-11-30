@@ -39,6 +39,7 @@ class HomeFragment : Fragment() {
 
         var recyclerView: RecyclerView? = null
         recyclerView = view.findViewById(R.id.recycler_view_home)
+
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.stackFromEnd = true
@@ -102,7 +103,6 @@ class HomeFragment : Fragment() {
 
                 for (snapshot in p0.children) {
                     val post = snapshot.getValue(Post::class.java)
-
                     for (id in (followingList as ArrayList<String>)) {
                         if (post!!.getPublisher() == id) {
                             postList!!.add(post)

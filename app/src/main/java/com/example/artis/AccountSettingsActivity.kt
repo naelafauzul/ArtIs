@@ -257,7 +257,5 @@ class AccountSettingsActivity : AppCompatActivity() {
                 })
             }
         }
-
-
     }
 }

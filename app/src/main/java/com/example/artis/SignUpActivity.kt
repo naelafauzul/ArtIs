@@ -102,12 +102,12 @@ class SignUpActivity : AppCompatActivity() {
         val usersRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("Users")
 
         // Generate Dynamic Link Firebase untuk User
-        val dynamicLink = "https://artis.page.link/user?userId=$currentUserId&token=secureToken"
+        val dynamicLink = "https://artis.page.link/user?userId=$currentUserId"
 
         val userMap = HashMap<String, Any>()
         userMap["uid"] = currentUserId
-        userMap["fullname"] = fullName.toLowerCase()
-        userMap["username"] = userName.toLowerCase()
+        userMap["fullname"] = fullName
+        userMap["username"] = userName
         userMap["email"] = email
         userMap["work"] = "I'm an artist"
         userMap["image"] = "https://firebasestorage.googleapis.com/v0/b/artist-app-ea1fd.appspot.com/o/Default%20Images%2Fprofile.png?alt=media&token=e1e73fd6-4844-4d04-87da-9c02d1437eb3"

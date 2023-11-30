@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.example.artis.Model.Comment
 import com.example.artis.Model.User
 import com.example.artis.R
@@ -18,7 +17,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
-import org.checkerframework.checker.nullness.qual.NonNull
 
 class CommentsAdapter(private val mContext: Context,
                       private val mComment: MutableList<Comment>?
