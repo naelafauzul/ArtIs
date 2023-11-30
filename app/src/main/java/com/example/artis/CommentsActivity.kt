@@ -1,4 +1,4 @@
-package com.example.artis.Adapter
+package com.example.artis
 
 
 import androidx.appcompat.app.AppCompatActivity

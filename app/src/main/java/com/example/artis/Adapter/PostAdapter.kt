@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 //import android.recyclerView.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.artis.CommentsActivity
 import com.example.artis.MainActivity
 import com.example.artis.Model.Post
 import com.example.artis.Model.User
