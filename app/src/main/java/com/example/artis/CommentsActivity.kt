@@ -93,6 +93,9 @@ class CommentsActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 if (p0.exists()) {
                     val user = p0.getValue<User>(User::class.java)
+
+                    profile_image_comment = findViewById(R.id.profile_image_comment) // temporary error fix
+
                     Picasso.get().load(user!!.getImage()).placeholder(R.drawable.profile)
                         .into(profile_image_comment)
                 }
@@ -113,6 +116,9 @@ class CommentsActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 if (p0.exists()) {
                     val image = p0.value.toString()
+
+                    post_image_comment = findViewById(R.id.post_image_comment) // temporary error fix
+
                     Picasso.get().load(image).placeholder(R.drawable.profile)
                         .into(post_image_comment)
                 }
