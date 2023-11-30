@@ -125,7 +125,7 @@ class AddPostActivity : AppCompatActivity() {
                         val downloadUrl = task.result
                         myUrl = downloadUrl.toString()
 
-                        val ref = FirebaseDatabase.getInstance().reference.child("Users")
+                        val ref = FirebaseDatabase.getInstance().reference.child("Posts")
                         val postId = ref.push().key
 
                         val postMap = HashMap<String, Any>()
