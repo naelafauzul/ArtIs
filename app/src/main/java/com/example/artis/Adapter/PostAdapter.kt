@@ -57,7 +57,7 @@ class PostAdapter
             holder.description.setText(post.getDescription())
         }
 
-        publisherInfo(holder.profileImage, holder.userName, holder.publisher, post.getPublisher())
+        publisherInfo(holder.profileImage, holder.userName, post.getPublisher())
         isLikes(post.getPostid(), holder.likeButton)
         numberOfLikes(holder.likes, post.getPostid())
         getTotalComments(holder.comments, post.getPostid())
@@ -175,7 +175,6 @@ class PostAdapter
         var saveButton : ImageView
         var userName : TextView
         var likes : TextView
-        var publisher : TextView
         var description : TextView
         var comments : TextView
 
@@ -185,15 +184,14 @@ class PostAdapter
             likeButton = itemView.findViewById(R.id.post_image_like_btn)
             commentButton = itemView.findViewById(R.id.post_image_comment_btn)
             saveButton = itemView.findViewById(R.id.post_save_comment_btn)
-            userName = itemView.findViewById(R.id.user_profile_image_post)
+            userName = itemView.findViewById(R.id.user_name_post)
             likes = itemView.findViewById(R.id.likes)
-            publisher = itemView.findViewById(R.id.publisher)
             description = itemView.findViewById(R.id.description)
             comments = itemView.findViewById(R.id.comments)
         }
     }
 
-    private fun publisherInfo(profileImage: CircleImageView, userName: TextView, publisher: TextView, publisherID: String)
+    private fun publisherInfo(profileImage: CircleImageView, userName: TextView, publisherID: String)
     {
         val usersRef = FirebaseDatabase.getInstance().reference.child("Users").child(publisherID)
 
@@ -205,7 +203,6 @@ class PostAdapter
 
                     Picasso.get().load(user!!.getImage()).placeholder(R.drawable.profile).into(profileImage)
                     userName.text = user!!.getUsername()
-                    publisher.text = user!!.getFullName()
                 }
             }
 

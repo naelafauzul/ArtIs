@@ -103,8 +103,8 @@ class HomeFragment : Fragment() {
                 for (snapshot in p0.children) {
                     val post = snapshot.getValue(Post::class.java)
 
-                    for (userID in (followingList as ArrayList<String>)) {
-                        if (post!!.getPublisher() == id.toString()) {
+                    for (id in (followingList as ArrayList<String>)) {
+                        if (post!!.getPublisher() == id) {
                             postList!!.add(post)
                         }
 
