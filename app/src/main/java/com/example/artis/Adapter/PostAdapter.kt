@@ -129,7 +129,7 @@ class PostAdapter
             override fun onDataChange(p0: DataSnapshot) {
                 if (p0.exists())
                 {
-                    comments.text = "view all " + p0.childrenCount.toString() + " comments"
+                    comments.text = "View all " + p0.childrenCount.toString() + " comments"
                 }
 
             }
