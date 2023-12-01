@@ -102,7 +102,7 @@ class SignUpActivity : AppCompatActivity() {
         val usersRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("Users")
 
         // Generate Dynamic Link Firebase untuk User
-        val dynamicLink = "https://artis.page.link/user?userId=$currentUserId"
+        val dynamicLink = "https://artis.page.link/profile?userId=$currentUserId"
 
         val userMap = HashMap<String, Any>()
         userMap["uid"] = currentUserId

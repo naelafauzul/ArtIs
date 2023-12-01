@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "459213360091",
+    "firebase_url": "https://artist-app-ea1fd-default-rtdb.firebaseio.com",
     "project_id": "artist-app-ea1fd",
     "storage_bucket": "artist-app-ea1fd.appspot.com"
   },
