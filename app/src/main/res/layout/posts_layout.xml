@@ -170,7 +170,8 @@
                         android:id="@+id/comments"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Comment" />
+                        android:text="No comment on this post yet"
+                        android:textColor="#8F8F8F" />
 
                 </LinearLayout>
 
