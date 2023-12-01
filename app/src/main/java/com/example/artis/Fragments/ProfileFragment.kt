@@ -41,6 +41,8 @@ class ProfileFragment : Fragment() {
     private lateinit var pro_image_profile_frag: ImageView
     private lateinit var full_name_profile_frag: TextView
     private lateinit var bio_profile_frag: TextView
+    private lateinit var total_arts: TextView
+
 
     var postList: List<Post>? = null
     var myImagesAdapter: MyImagesAdapter? = null
@@ -56,6 +58,7 @@ class ProfileFragment : Fragment() {
         pro_image_profile_frag = view.findViewById(R.id.pro_image_profile_frag)
         full_name_profile_frag = view.findViewById(R.id.full_name_profile_frag)
         bio_profile_frag = view.findViewById(R.id.bio_profile_frag)
+        total_arts = view.findViewById(R.id.total_arts)
 
 
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
@@ -127,6 +130,7 @@ class ProfileFragment : Fragment() {
         getFollowings()
         getUserInfo()
         myPhotos()
+        getTotalNumberOfPosts()
 
         qrButton.setOnClickListener {
             val intent = Intent(activity, QRProfileActivity::class.java)
@@ -275,6 +279,36 @@ class ProfileFragment : Fragment() {
         val pref = context?.getSharedPreferences("PREFS", Context.MODE_PRIVATE)?.edit()
         pref?.putString("profileId", firebaseUser.uid)
         pref?.apply()
+    }
+
+    private fun getTotalNumberOfPosts() {
+        val postsRef = FirebaseDatabase.getInstance().reference.child("Posts")
+
+        postsRef.addValueEventListener(object : ValueEventListener
+        {
+            override fun onDataChange(dataSnapshot: DataSnapshot)
+            {
+                if (dataSnapshot.exists())
+                {
+                    var postCounter = 0
+
+                    for (snapShot in dataSnapshot.children)
+                    {
+                        val post = snapShot.getValue(Post::class.java)!!
+
+                        if (post.getPublisher() == profileId)
+                        {
+                            postCounter++
+                        }
+                    }
+                    total_arts.text = " " + postCounter
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
     }
 
 }
