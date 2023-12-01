@@ -6,7 +6,6 @@ class Comment {
 
     constructor()
 
-
     constructor(comment: String, publisher: String) {
         this.comment = comment
         this.publisher = publisher

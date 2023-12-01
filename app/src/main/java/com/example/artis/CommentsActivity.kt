@@ -38,6 +38,8 @@ class CommentsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_comments)
 
         val post_comment: Button = findViewById(R.id.post_comment)
+        val add_comment = findViewById<EditText>(R.id.add_comment)
+
 
 
         val intent = intent
@@ -58,7 +60,7 @@ class CommentsActivity : AppCompatActivity() {
 
         getUserInfo()
         readComments()
-        
+
         post_comment.setOnClickListener(View.OnClickListener {
             if (add_comment!!.text.toString() == "")
             {
@@ -72,10 +74,11 @@ class CommentsActivity : AppCompatActivity() {
     }
 
     private fun addComment() {
-        val commentsRef = FirebaseDatabase.getInstance().reference
-            .child("Comments").child(postId!!)
 
+        val commentsRef = FirebaseDatabase.getInstance().reference.child("Comments").child(postId!!)
+        val add_comment = findViewById<EditText>(R.id.add_comment)
         val commentsMap = HashMap<String, Any>()
+
         commentsMap["comment"] = add_comment!!.text.toString()
         commentsMap["publisher"] = firebaseUser!!.uid
 
@@ -86,18 +89,15 @@ class CommentsActivity : AppCompatActivity() {
     }
 
     private fun getUserInfo() {
-        val usersRef =
-            FirebaseDatabase.getInstance().reference.child("Users").child(firebaseUser!!.uid)
+        val usersRef = FirebaseDatabase.getInstance().reference.child("Users").child(firebaseUser!!.uid)
 
         usersRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 if (p0.exists()) {
                     val user = p0.getValue<User>(User::class.java)
 
-                    profile_image_comment = findViewById(R.id.profile_image_comment) // temporary error fix
-
-                    Picasso.get().load(user!!.getImage()).placeholder(R.drawable.profile)
-                        .into(profile_image_comment)
+                    profile_image_comment = findViewById(R.id.profile_image_comment)
+                    Picasso.get().load(user!!.getImage()).placeholder(R.drawable.profile).into(profile_image_comment)
                 }
             }
 
@@ -117,10 +117,8 @@ class CommentsActivity : AppCompatActivity() {
                 if (p0.exists()) {
                     val image = p0.value.toString()
 
-                    post_image_comment = findViewById(R.id.post_image_comment) // temporary error fix
-
-                    Picasso.get().load(image).placeholder(R.drawable.profile)
-                        .into(post_image_comment)
+                    post_image_comment = findViewById(R.id.post_image_comment)
+                    Picasso.get().load(image).placeholder(R.drawable.profile).into(post_image_comment)
                 }
             }
 
