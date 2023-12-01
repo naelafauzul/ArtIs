@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,6 +54,8 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        val qrButton: ImageButton = view.findViewById(R.id.qrButton)
+
         edit_account_settings_btn = view.findViewById<Button>(R.id.edit_account_settings_btn)
         total_followers = view.findViewById(R.id.total_followers)
         total_following = view.findViewById(R.id.total_following)
@@ -82,8 +86,6 @@ class ProfileFragment : Fragment() {
         myImagesAdapter = context?.let { MyImagesAdapter(it, postList as ArrayList<Post>) }
         recyclerViewUploadImage.adapter = myImagesAdapter
 
-
-        val qrButton: ImageButton = view.findViewById(R.id.qrButton)
 
         edit_account_settings_btn.setOnClickListener {
             val getButtonText = edit_account_settings_btn.text.toString()
@@ -126,6 +128,18 @@ class ProfileFragment : Fragment() {
 
         }
 
+        if (profileId == firebaseUser.uid) {
+            qrButton.visibility = View.VISIBLE
+            qrButton.isEnabled = true
+        } else {
+            qrButton.visibility = View.INVISIBLE
+            qrButton.isEnabled = false
+
+            val params = qrButton.layoutParams as LinearLayout.LayoutParams
+            params.weight = 0f
+            qrButton.layoutParams = params
+        }
+
         getFollowers()
         getFollowings()
         getUserInfo()
@@ -141,6 +155,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun checkFollowAndFollowButtonStatus() {
+        val qrButton = view?.findViewById<ImageButton>(R.id.qrButton)
         val followingRef = firebaseUser?.uid.let { it1 ->
             FirebaseDatabase.getInstance().reference
                 .child("Follow").child(it1.toString())
@@ -155,6 +170,7 @@ class ProfileFragment : Fragment() {
                     } else {
                         edit_account_settings_btn.text = "Follow"
                     }
+
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
@@ -232,7 +248,7 @@ class ProfileFragment : Fragment() {
         })
     }
     private fun getUserInfo() {
-        val usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(profileId)
+        val usersRef = FirebaseDatabase.getInstance().reference.child("Users").child(profileId)
 
         usersRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

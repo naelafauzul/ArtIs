@@ -71,14 +71,12 @@ class PostDetailsFragment : Fragment() {
 
                 val post = p0.getValue(Post::class.java)
 
-                postList!!.add(post!!)
+                postList!!.add(post!! )
 
                 postAdapter!!.notifyDataSetChanged()
             }
 
-            override fun onCancelled(p0: DatabaseError) {
-
-            }
+            override fun onCancelled(p0: DatabaseError) {}
         })
     }
 
