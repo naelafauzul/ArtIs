@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +32,7 @@ class CommentsActivity : AppCompatActivity() {
     private var commentList: MutableList<com.example.artis.Model.Comment>? = null
     private var add_comment: EditText? = null
     private var profile_image_comment: CircleImageView? = null
-    private var post_image_comment: CircleImageView? = null
+    private var post_image_comment: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +61,7 @@ class CommentsActivity : AppCompatActivity() {
 
         getUserInfo()
         readComments()
+        getPostImage()
 
         post_comment.setOnClickListener(View.OnClickListener {
             if (add_comment!!.text.toString() == "")
