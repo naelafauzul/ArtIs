@@ -40,7 +40,7 @@ class ApiServices(private val context: Context) {
             override fun getHeaders(): MutableMap<String, String> {
                 val params: MutableMap<String, String> = HashMap()
                 params["Content-Type"] = "application/json"
-                params["Authorization"] = "Bearer "
+                params["Authorization"] = "Bearer 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"
                 return params
             }
         }
