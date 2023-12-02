@@ -41,9 +41,11 @@ android {
 }
 
 dependencies {
+    implementation ("com.google.firebase:firebase-dynamic-links:21.2.0")
+    implementation ("com.google.firebase:firebase-analytics:21.5.0")
 
     implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.17")
-    implementation("org.checkerframework:checker:3.8.0")
+    //implementation("org.checkerframework:checker:3.8.0")
     implementation("com.google.zxing:core:3.4.0")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

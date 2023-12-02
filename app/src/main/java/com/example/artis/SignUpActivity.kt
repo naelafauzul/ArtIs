@@ -2,16 +2,28 @@ package com.example.artis
 
 import android.app.ProgressDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.dynamiclinks.DynamicLink
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import com.google.firebase.dynamiclinks.ShortDynamicLink
+import com.google.firebase.dynamiclinks.androidParameters
+import com.google.firebase.dynamiclinks.dynamicLink
+import com.google.firebase.dynamiclinks.dynamicLinks
+import java.net.HttpURLConnection
+import java.net.URL
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var fullName: TextView
@@ -19,7 +31,10 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var email:TextView
     private lateinit var password:TextView
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
@@ -98,10 +113,28 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun saveUserInfo(fullName: String, userName: String, email: String, progressDialog: ProgressDialog) {
+//        val dynaLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+//            .setLink(Uri.parse("$dynamicLink"))
+//            .setDomainUriPrefix("https://artis.page.link")
+//            .setAndroidParameters(
+//                DynamicLink.AndroidParameters.Builder("com.example.artis")
+//                    .build()
+//            )
+//            .setIosParameters (
+//                DynamicLink.IosParameters.Builder("com.example.artis.ios")
+//                    .build()
+//            )
+//            .buildDynamicLink()
+//
+//        FirebaseDynamicLinks.getInstance().createDynamicLink()
+//            .setLongLink(dynaLink.uri)
+//            .buildShortDynamicLink(ShortDynamicLink.Suffix.SHORT)
+//            .addOnSuccessListener { shortDynamicLink ->
+//                val shortLink = "https://artis.page.link/profile?userId=$currentUserId"
+//                Log.d("DynamicLink", "Short Link: $shortLink")
+//            }
         val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
         val usersRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("Users")
-
-        // Generate Dynamic Link Firebase untuk User
         val dynamicLink = "https://artis.page.link/profile?userId=$currentUserId"
 
         val userMap = HashMap<String, Any>()
@@ -111,6 +144,7 @@ class SignUpActivity : AppCompatActivity() {
         userMap["email"] = email
         userMap["work"] = "I'm an artist"
         userMap["image"] = "https://firebasestorage.googleapis.com/v0/b/artist-app-ea1fd.appspot.com/o/Default%20Images%2Fprofile.png?alt=media&token=e1e73fd6-4844-4d04-87da-9c02d1437eb3"
+        userMap["qrCodeLink"] = dynamicLink
 
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null && user.uid == currentUserId) {
@@ -120,9 +154,6 @@ class SignUpActivity : AppCompatActivity() {
             // User diharap login untuk membuka tautan QR Code
             // Pindah halaman Sign Up
         }
-
-        // Tambah link unik ke UserMap
-        userMap["qrCodeLink"] = dynamicLink
 
         usersRef.child(currentUserId).setValue(userMap)
             .addOnCompleteListener{task ->
